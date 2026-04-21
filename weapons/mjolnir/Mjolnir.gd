@@ -5,7 +5,7 @@ class_name MjolnirWeapon extends Weapon
 @export var return_catch_dist: float = 18.0
 
 var _cd_left: float = 0.4
-var _hammers: Array = []   # [{pos, dir, target, state, damage, hit_ids}]
+var _hammers: Array = []
 
 enum State { OUT, RETURN }
 
@@ -15,8 +15,18 @@ func _process(delta: float) -> void:
 	if _cd_left <= 0.0:
 		_cd_left = current_cooldown()
 		_throw()
+		if should_phantom():
+			_throw()
 	_tick(delta)
 	queue_redraw()
+
+
+func _reset_cooldown() -> void:
+	_cd_left = 0.0
+
+
+func reduce_cooldown(amount: float) -> void:
+	_cd_left = max(0.0, _cd_left - amount)
 
 
 func _throw() -> void:
@@ -26,6 +36,8 @@ func _throw() -> void:
 		base_dir = (nearest.global_position - global_position).normalized()
 	var count := current_projectile_count()
 	var throw_dist := current_area()
+	var is_crit := roll_crit()
+	var dmg := apply_crit(current_damage()) if is_crit else current_damage()
 	for i in count:
 		var off := 0.0
 		if count > 1:
@@ -36,7 +48,8 @@ func _throw() -> void:
 			"dir": d,
 			"target": global_position + d * throw_dist,
 			"state": State.OUT,
-			"damage": current_damage(),
+			"damage": dmg,
+			"was_crit": is_crit,
 			"hit_ids": {},
 		})
 
@@ -65,6 +78,7 @@ func _tick(delta: float) -> void:
 			if e.global_position.distance_to(h.pos) <= hammer_radius + 10.0:
 				if e.has_method("take_damage"):
 					e.take_damage(h.damage)
+				apply_god_effects(e, h.damage, h.was_crit)
 				h.hit_ids[id] = true
 
 	for r in remove:

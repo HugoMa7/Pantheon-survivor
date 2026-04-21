@@ -19,21 +19,19 @@ func _ready() -> void:
 	_apply_selected_trinket()
 	_grant_starting_weapon()
 
+	var weapon_panel: CanvasLayer = load("res://ui/WeaponStatsPanel.gd").new()
+	add_child(weapon_panel)
+	weapon_panel.bind_player(player)
+
+	if SaveGame.debug_mode:
+		add_child(load("res://ui/DebugPanel.gd").new())
+
 	player.died.connect(_on_player_died)
 	event_director.final_boss_slain.connect(_on_final_boss_slain)
 
 
 func _apply_selected_god() -> void:
-	var god := GodCatalog.get_god(SaveGame.selected_god)
-	if god == null:
-		return
-	if god.starting_stat_id != "":
-		player._apply_stat(god.starting_stat_id, god.starting_stat_value)
-	# _apply_stat already bumps current_hp when stat_id is "max_hp"; just clamp and rebroadcast.
-	player.current_hp = min(player.current_hp, player.effective_max_hp())
-	player.health_changed.emit(player.current_hp, player.effective_max_hp())
-	if hud and hud.has_method("show_toast"):
-		hud.show_toast("%s walks with you." % god.display_name, 2.5)
+	pass
 
 
 func _apply_selected_trinket() -> void:
@@ -48,13 +46,9 @@ func _apply_selected_trinket() -> void:
 
 
 func _grant_starting_weapon() -> void:
-	var god := GodCatalog.get_god(SaveGame.selected_god)
-	var weapon_id: String = ""
-	if god and god.signature_weapon_id != "":
-		weapon_id = god.signature_weapon_id
-	else:
+	var weapon_id: String = SaveGame.selected_weapon
+	if weapon_id == "" or not Player.WEAPON_REGISTRY.has(weapon_id):
 		weapon_id = "divine_flame"
-	# Clear any scene-baked starter weapons so we don't double-equip
 	var weapons_node: Node = player.get_node("Weapons")
 	for child in weapons_node.get_children():
 		if child is Weapon:

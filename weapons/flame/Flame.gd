@@ -12,20 +12,33 @@ func _process(delta: float) -> void:
 	if _cd_left <= 0.0:
 		_cd_left = current_cooldown()
 		_fire_pulse()
+		if should_phantom():
+			_fire_pulse()
 	if _draw_alpha > 0.0:
 		queue_redraw()
 
 
+func _reset_cooldown() -> void:
+	_cd_left = 0.0
+
+
+func reduce_cooldown(amount: float) -> void:
+	_cd_left = max(0.0, _cd_left - amount)
+
+
 func _fire_pulse() -> void:
 	var radius := current_area()
-	var damage := current_damage()
+	var base_dmg := current_damage()
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(enemy):
 			continue
 		if enemy.global_position.distance_to(global_position) <= radius:
 			if enemy.has_method("take_damage"):
-				enemy.take_damage(damage)
+				var is_crit := roll_crit()
+				var dmg := apply_crit(base_dmg) if is_crit else base_dmg
+				enemy.take_damage(dmg)
+				apply_god_effects(enemy, dmg, is_crit)
 
 	_draw_radius = 10.0
 	_draw_alpha = pulse_color.a
@@ -39,7 +52,6 @@ func _draw() -> void:
 		var c := pulse_color
 		c.a = _draw_alpha
 		draw_circle(Vector2.ZERO, _draw_radius, c)
-		# inner brighter ring
 		var inner := pulse_color
 		inner.a = _draw_alpha * 0.4
 		draw_circle(Vector2.ZERO, _draw_radius * 0.6, inner)

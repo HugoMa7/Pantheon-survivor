@@ -5,7 +5,10 @@ class_name Projectile extends Area2D
 @export var lifetime: float = 3.0
 @export var pierce: int = 0
 @export var homing: bool = false
-@export var turn_rate: float = 7.0   # radians/sec for homing
+@export var turn_rate: float = 7.0
+
+var was_crit: bool = false
+var on_hit_extra: Callable = Callable()
 
 var _dir: Vector2 = Vector2.RIGHT
 var _time_alive: float = 0.0
@@ -56,6 +59,8 @@ func _on_body_entered(body: Node) -> void:
 	_hit_ids[id] = true
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
+		if on_hit_extra.is_valid():
+			on_hit_extra.call(body, damage, was_crit)
 	if _pierce_left > 0:
 		_pierce_left -= 1
 	else:

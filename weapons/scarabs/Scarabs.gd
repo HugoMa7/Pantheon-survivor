@@ -12,6 +12,16 @@ func _process(delta: float) -> void:
 	if _cd_left <= 0.0:
 		_cd_left = current_cooldown()
 		_release()
+		if should_phantom():
+			_release()
+
+
+func _reset_cooldown() -> void:
+	_cd_left = 0.0
+
+
+func reduce_cooldown(amount: float) -> void:
+	_cd_left = max(0.0, _cd_left - amount)
 
 
 func _release() -> void:
@@ -20,7 +30,12 @@ func _release() -> void:
 	for i in count:
 		var angle := base_angle + TAU * float(i) / float(count)
 		var dir := Vector2.from_angle(angle)
+		var is_crit := roll_crit()
+		var dmg := apply_crit(current_damage()) if is_crit else current_damage()
 		var proj: Projectile = PROJECTILE_SCENE.instantiate()
 		proj.modulate = scarab_color
+		proj.was_crit = is_crit
+		proj.on_hit_extra = func(enemy: Node, d: float, crit: bool) -> void:
+			apply_god_effects(enemy, d, crit)
 		get_tree().current_scene.add_child(proj)
-		proj.launch(global_position, dir, current_projectile_speed(), current_damage(), 5.0, 0, true)
+		proj.launch(global_position, dir, current_projectile_speed(), dmg, 5.0, 0, true)

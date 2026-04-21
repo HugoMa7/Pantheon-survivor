@@ -1,6 +1,6 @@
 class_name SpinningShield extends Weapon
 
-@export var orbit_speed: float = 2.6          # radians/s at level 1 (projectile_speed field drives this)
+@export var orbit_speed: float = 2.6
 @export var shield_radius: float = 12.0
 @export var hit_cooldown_per_enemy: float = 0.35
 @export var shield_color: Color = Color(0.85, 0.88, 1.0, 1.0)
@@ -35,7 +35,7 @@ func _orbit_positions() -> Array:
 
 
 func _check_hits() -> void:
-	var dmg := current_damage()
+	var base_dmg := current_damage()
 	var positions := _orbit_positions()
 	for e in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(e):
@@ -45,7 +45,10 @@ func _check_hits() -> void:
 			continue
 		for p in positions:
 			if e.global_position.distance_to(global_position + p) <= shield_radius + 10.0:
+				var is_crit := roll_crit()
+				var dmg := apply_crit(base_dmg) if is_crit else base_dmg
 				e.take_damage(dmg)
+				apply_god_effects(e, dmg, is_crit)
 				_hit_cooldowns[id] = hit_cooldown_per_enemy
 				break
 

@@ -1,12 +1,11 @@
 class_name XPGem extends Area2D
 
 @export var xp_value: int = 1
-@export var magnet_accel: float = 1200.0
-@export var max_speed: float = 700.0
-@export var absorb_distance: float = 14.0
+@export var magnet_speed: float = 450.0
+@export var absorb_distance: float = 20.0
 
-var _velocity: Vector2 = Vector2.ZERO
 var _player: Node2D
+var _magnetized: bool = false
 
 
 func _ready() -> void:
@@ -37,10 +36,8 @@ func _physics_process(delta: float) -> void:
 		pickup_radius = _player.get_pickup_radius()
 
 	if dist <= pickup_radius:
-		_velocity += to_player.normalized() * magnet_accel * delta
-		if _velocity.length() > max_speed:
-			_velocity = _velocity.normalized() * max_speed
-	else:
-		_velocity = _velocity.move_toward(Vector2.ZERO, 200.0 * delta)
+		_magnetized = true
 
-	global_position += _velocity * delta
+	if _magnetized:
+		# Pure seek: recalculate direction every frame so the orb always tracks the player's current position.
+		global_position += to_player.normalized() * magnet_speed * delta

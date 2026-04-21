@@ -18,6 +18,7 @@ class_name WaveDirector extends Node
 @export var burst_count_max: int = 5
 
 var elapsed: float = 0.0
+var debug_density_mult: float = 1.0  # set by DebugPanel; >1 = denser
 
 var _spawn_timer: float = 0.0
 var _player: Node2D
@@ -69,11 +70,13 @@ func _progress() -> float:
 
 
 func _current_spawn_interval() -> float:
-	return lerp(spawn_interval_start, spawn_interval_min, _progress())
+	var base: float = lerp(spawn_interval_start, spawn_interval_min, _progress())
+	return base / max(0.1, debug_density_mult)
 
 
 func _current_burst_count() -> int:
-	return int(round(lerp(1.0, float(burst_count_max), _progress())))
+	var base: float = lerp(1.0, float(burst_count_max), _progress())
+	return max(1, int(round(base * debug_density_mult)))
 
 
 func _current_hp_multiplier() -> float:

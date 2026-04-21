@@ -42,6 +42,8 @@ signal gold_changed(current: int)
 var stats := StatBlock.new()
 var current_hp: float
 var level: int = 1
+var _invincibility_timer: float = 0.0
+var debug_god_mode: bool = false
 var current_xp: int = 0
 var xp_to_next: int = 5
 var gold: int = 0
@@ -63,6 +65,9 @@ func _physics_process(delta: float) -> void:
 	var input_vec := InputController.get_move_vector()
 	velocity = input_vec * effective_move_speed()
 	move_and_slide()
+
+	if _invincibility_timer > 0.0:
+		_invincibility_timer -= delta
 
 	if stats.hp_regen > 0.0 and current_hp > 0.0 and current_hp < effective_max_hp():
 		current_hp = min(effective_max_hp(), current_hp + stats.hp_regen * delta)
@@ -88,12 +93,31 @@ func get_pickup_radius() -> float:
 func take_damage(amount: float) -> void:
 	if current_hp <= 0.0:
 		return
+	if debug_god_mode or _invincibility_timer > 0.0:
+		return
 	var gross: float = amount * (1.0 + stats.damage_taken_mult)
 	var net: float = max(0.0, gross - stats.armor)
 	current_hp = max(0.0, current_hp - net)
 	health_changed.emit(current_hp, effective_max_hp())
 	if current_hp <= 0.0:
+		if _consume_nine_lives():
+			current_hp = effective_max_hp() * 0.25
+			health_changed.emit(current_hp, effective_max_hp())
+			return
 		died.emit()
+
+
+func grant_invincibility(duration: float) -> void:
+	_invincibility_timer = max(_invincibility_timer, duration)
+
+
+func _consume_nine_lives() -> bool:
+	for w in owned_weapons():
+		var charges = w.get("nine_lives_charges")
+		if charges != null and int(charges) > 0:
+			w.nine_lives_charges -= 1
+			return true
+	return false
 
 
 func gain_xp(amount: int) -> void:
@@ -105,6 +129,13 @@ func gain_xp(amount: int) -> void:
 		xp_to_next = _xp_for_next_level(level)
 		leveled_up.emit(level)
 	xp_changed.emit(current_xp, xp_to_next, level)
+
+
+func heal(amount: float) -> void:
+	if current_hp <= 0.0:
+		return
+	current_hp = min(effective_max_hp(), current_hp + amount)
+	health_changed.emit(current_hp, effective_max_hp())
 
 
 func gain_gold(amount: int) -> void:

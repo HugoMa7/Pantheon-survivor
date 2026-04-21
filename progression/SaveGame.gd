@@ -14,6 +14,11 @@ var gold: int = 0
 var weapon_slots: int = 3
 var selected_god: String = ""
 var selected_trinket: String = ""
+var selected_weapon: String = "divine_flame"
+var interacted_gods: Array = []
+
+# Session-only (never persisted) — toggled on pre-run screen.
+var debug_mode: bool = false
 
 
 func _ready() -> void:
@@ -30,6 +35,7 @@ func load_save() -> void:
 		weapon_slots = 3
 		selected_god = "hermes"
 		selected_trinket = ""
+		selected_weapon = "divine_flame"
 		save_save()
 		return
 	unlocked_gods = f.get_value("save", "unlocked_gods", DEFAULT_UNLOCKED_GODS.duplicate())
@@ -38,6 +44,8 @@ func load_save() -> void:
 	weapon_slots = int(f.get_value("save", "weapon_slots", 3))
 	selected_god = str(f.get_value("save", "selected_god", "hermes"))
 	selected_trinket = str(f.get_value("save", "selected_trinket", ""))
+	selected_weapon = str(f.get_value("save", "selected_weapon", "divine_flame"))
+	interacted_gods = f.get_value("save", "interacted_gods", [])
 
 
 func save_save() -> void:
@@ -48,7 +56,16 @@ func save_save() -> void:
 	f.set_value("save", "weapon_slots", weapon_slots)
 	f.set_value("save", "selected_god", selected_god)
 	f.set_value("save", "selected_trinket", selected_trinket)
+	f.set_value("save", "selected_weapon", selected_weapon)
+	f.set_value("save", "interacted_gods", interacted_gods)
 	f.save(SAVE_PATH)
+
+
+func record_god_interaction(god_id: String) -> void:
+	if god_id not in interacted_gods:
+		interacted_gods.append(god_id)
+	unlock_god(god_id)
+	save_save()
 
 
 func god_unlocked(id: String) -> bool:

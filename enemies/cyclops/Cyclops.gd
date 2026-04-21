@@ -9,6 +9,7 @@ class_name Cyclops extends Enemy
 const ENEMY_PROJECTILE_SCENE := preload("res://enemies/EnemyProjectile.tscn")
 const RELIC_CHEST_SCENE := preload("res://pickups/RelicChest.tscn")
 const GOLD_COIN_SCENE := preload("res://pickups/GoldCoin.tscn")
+const ALTAR_SCENE := preload("res://events/AltarOfGods.tscn")
 
 signal final_boss_slain(pos: Vector2)
 signal elite_slain(pos: Vector2)
@@ -67,19 +68,22 @@ func take_damage(amount: float) -> void:
 
 
 func _on_death() -> void:
-	# Drop a pile of gold coins so it's felt + visually satisfying
 	for i in coins_on_death:
 		var coin: GoldCoin = GOLD_COIN_SCENE.instantiate()
 		coin.amount = coin_value
 		var jitter := Vector2(randf_range(-40.0, 40.0), randf_range(-40.0, 40.0))
 		coin.global_position = global_position + jitter
 		get_tree().current_scene.add_child(coin)
-	# Drop a Relic Chest
+
 	var chest: RelicChest = RELIC_CHEST_SCENE.instantiate()
-	chest.global_position = global_position
+	chest.global_position = global_position + Vector2(40.0, 0.0)
 	get_tree().current_scene.add_child(chest)
 
 	if is_final_boss:
 		final_boss_slain.emit(global_position)
 	else:
+		# Elites always drop an Altar of Gods
+		var altar: Node2D = ALTAR_SCENE.instantiate()
+		altar.global_position = global_position + Vector2(-40.0, 0.0)
+		get_tree().current_scene.add_child(altar)
 		elite_slain.emit(global_position)

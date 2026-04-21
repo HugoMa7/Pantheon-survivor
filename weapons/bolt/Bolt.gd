@@ -6,7 +6,7 @@ class_name ZeusBolt extends Weapon
 @export var segment_lifetime: float = 0.15
 
 var _cd_left: float = 0.5
-var _segments: Array = []   # [{a, b, time_left}]
+var _segments: Array = []
 
 
 func _process(delta: float) -> void:
@@ -14,6 +14,8 @@ func _process(delta: float) -> void:
 	if _cd_left <= 0.0:
 		_cd_left = current_cooldown()
 		_strike()
+		if should_phantom():
+			_strike()
 
 	if not _segments.is_empty():
 		var alive: Array = []
@@ -25,20 +27,31 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 
+func _reset_cooldown() -> void:
+	_cd_left = 0.0
+
+
+func reduce_cooldown(amount: float) -> void:
+	_cd_left = max(0.0, _cd_left - amount)
+
+
 func _strike() -> void:
 	var first := EnemyQuery.nearest(get_tree(), global_position, search_range)
 	if not first:
 		return
 	var chains := current_projectile_count()
-	var dmg := current_damage()
+	var base_dmg := current_damage()
 	var hit: Array = []
 	var from_pos := global_position
 	var cur: Node2D = first
 	for i in chains:
 		if not is_instance_valid(cur):
 			break
+		var is_crit := roll_crit()
+		var dmg := apply_crit(base_dmg) if is_crit else base_dmg
 		if cur.has_method("take_damage"):
 			cur.take_damage(dmg)
+		apply_god_effects(cur, dmg, is_crit)
 		_segments.append({"a": from_pos, "b": cur.global_position, "time_left": segment_lifetime})
 		hit.append(cur)
 		from_pos = cur.global_position
@@ -46,7 +59,7 @@ func _strike() -> void:
 		if next.is_empty():
 			break
 		cur = next[0]
-		dmg *= chain_damage_mult
+		base_dmg *= chain_damage_mult
 	queue_redraw()
 
 
@@ -55,8 +68,6 @@ func _draw() -> void:
 		var alpha: float = clamp(float(s.time_left) / segment_lifetime, 0.0, 1.0)
 		var c: Color = bolt_color
 		c.a = alpha
-		var a_pos: Vector2 = s.a
-		var b_pos: Vector2 = s.b
-		draw_line(to_local(a_pos), to_local(b_pos), c, 3.0)
+		draw_line(to_local(s.a), to_local(s.b), c, 3.0)
 		var core: Color = Color(1, 1, 1, alpha * 0.8)
-		draw_line(to_local(a_pos), to_local(b_pos), core, 1.0)
+		draw_line(to_local(s.a), to_local(s.b), core, 1.0)

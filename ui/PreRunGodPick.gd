@@ -1,57 +1,75 @@
 extends Control
 
-# Pre-run screen: pick one unlocked god to align with at the start of this run.
-# Writes SaveGame.selected_god, then advances to PreRunTrinketPick.
+# Pre-run screen: pick a starting weapon for this run.
+# Writes SaveGame.selected_weapon, then advances to PreRunTrinketPick.
 
 const NEXT_SCENE := "res://ui/PreRunTrinketPick.tscn"
 
 @onready var grid: GridContainer = %Grid
 @onready var title: Label = %Title
 
+var _debug_btn: Button
+
 
 func _ready() -> void:
-	title.text = "Choose your patron god"
+	title.text = "Choose your starting weapon"
 	_populate()
+	_build_debug_toggle()
+
+
+func _build_debug_toggle() -> void:
+	_debug_btn = Button.new()
+	_debug_btn.anchor_left = 1.0
+	_debug_btn.anchor_right = 1.0
+	_debug_btn.anchor_top = 1.0
+	_debug_btn.anchor_bottom = 1.0
+	_debug_btn.offset_left = -175.0
+	_debug_btn.offset_right = -8.0
+	_debug_btn.offset_top = -42.0
+	_debug_btn.offset_bottom = -8.0
+	_debug_btn.pressed.connect(_on_debug_toggle)
+	add_child(_debug_btn)
+	_refresh_debug_btn()
+
+
+func _refresh_debug_btn() -> void:
+	if SaveGame.debug_mode:
+		_debug_btn.text = "Debug Mode: ON"
+		_debug_btn.modulate = Color(1.0, 0.85, 0.2)
+	else:
+		_debug_btn.text = "Debug Mode: OFF"
+		_debug_btn.modulate = Color(0.6, 0.6, 0.6)
+
+
+func _on_debug_toggle() -> void:
+	SaveGame.debug_mode = not SaveGame.debug_mode
+	_refresh_debug_btn()
 
 
 func _populate() -> void:
 	for child in grid.get_children():
 		child.queue_free()
-	for id in GodCatalog.all_ids():
-		if not SaveGame.god_unlocked(str(id)):
-			continue
-		var god: GodData = GodCatalog.get_god(str(id))
-		grid.add_child(_make_card(god))
+	for id in Player.WEAPON_REGISTRY.keys():
+		var wd: WeaponData = Player.WEAPON_REGISTRY[id].data
+		grid.add_child(_make_card(wd))
 
 
-func _make_card(god: GodData) -> Control:
+func _make_card(wd: WeaponData) -> Control:
 	var btn := Button.new()
 	btn.custom_minimum_size = Vector2(240, 170)
 	btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var buff := _buff_text(god)
-	var weapon_line := ""
-	if god.signature_weapon_id != "":
-		weapon_line = "\n(Starts with: %s)" % god.signature_weapon_id.capitalize().replace("_", " ")
-	btn.text = "%s\n%s\n\n%s%s" % [god.display_name, god.pantheon.capitalize(), buff, weapon_line]
-	btn.pressed.connect(func() -> void: _pick(god.id))
+	var desc := wd.description if wd.description != "" else "—"
+	btn.text = "%s\n\n%s\n\nDMG: %d   CD: %.1fs" % [
+		wd.display_name,
+		desc,
+		int(wd.base_damage),
+		wd.cooldown,
+	]
+	btn.pressed.connect(func() -> void: _pick(wd.id))
 	return btn
 
 
-func _buff_text(god: GodData) -> String:
-	if god.starting_stat_id == "":
-		return "— No starting buff —"
-	match god.starting_stat_id:
-		"move_speed": return "+%d%% Move Speed" % int(god.starting_stat_value * 100)
-		"damage": return "+%d%% Damage" % int(god.starting_stat_value * 100)
-		"crit_chance": return "+%d%% Crit Chance" % int(god.starting_stat_value * 100)
-		"luck": return "+%d Luck" % int(god.starting_stat_value)
-		"max_hp": return "+%d Max HP" % int(god.starting_stat_value)
-		"projectile_count": return "+%d Projectile" % int(god.starting_stat_value)
-		_:
-			return "+%s %s" % [str(god.starting_stat_value), god.starting_stat_id]
-
-
-func _pick(god_id: String) -> void:
-	SaveGame.selected_god = god_id
+func _pick(weapon_id: String) -> void:
+	SaveGame.selected_weapon = weapon_id
 	SaveGame.save_save()
 	get_tree().change_scene_to_file(NEXT_SCENE)
