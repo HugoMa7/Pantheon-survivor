@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://pantheon_cyclops_data"]
+
+[ext_resource type="Script" path="res://enemies/EnemyData.gd" id="1_enemydata"]
+
+[resource]
+script = ExtResource("1_enemydata")
+id = "cyclops"
+display_name = "Cyclops"
+category = "elite"
+base_hp = 650.0
+base_damage = 18.0
+base_speed = 55.0
+size = 1.8
+is_ranged = false
+attack_range = 0.0
+projectile_speed = 0.0
+attack_cooldown = 1.2
+attack_pattern = "melee_contact"
+xp_value = 25
+gold_drop_chance = 0.0
+gold_drop_min = 0
+gold_drop_max = 0
+color = Color(0.85, 0.55, 0.35, 1)

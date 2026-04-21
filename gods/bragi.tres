@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GodData" load_steps=2 format=3 uid="uid://pantheon_god_bragi"]
+
+[ext_resource type="Script" path="res://gods/GodData.gd" id="1_god"]
+
+[resource]
+script = ExtResource("1_god")
+id = "bragi"
+display_name = "Bragi"
+pantheon = "norse"
+description = "Skald of Asgard. Weaver of verses that sway fate."
+color = Color(0.55, 0.4, 0.85, 1)
+starting_stat_id = "luck"
+starting_stat_value = 1.0
+signature_weapon_id = ""
+weapon_effect_modifiers = []

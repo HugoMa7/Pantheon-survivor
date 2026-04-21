@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://pantheon_prerun_trinket_pick"]
+
+[ext_resource type="Script" path="res://ui/PreRunTrinketPick.gd" id="1_trinketpick"]
+
+[node name="PreRunTrinketPick" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_trinketpick")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.07, 0.11, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+
+[node name="Title" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Equip a trinket"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="ScrollArea" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Grid" type="GridContainer" parent="VBox/ScrollArea"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3

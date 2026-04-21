@@ -1,0 +1,20 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# System/tool-specific ignores
+.DS_Store
+Thumbs.db
+
+# Build/export output
+/build/
+/export/
+export_presets.cfg
+
+# IDE
+.vscode/
+.idea/
+*.swp

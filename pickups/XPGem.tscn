@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://pantheon_xpgem_scene"]
+
+[ext_resource type="Script" path="res://pickups/XPGem.gd" id="1_gem"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gem"]
+radius = 5.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gem"]
+size = Vector2(8, 8)
+
+[node name="XPGem" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_gem")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.35, 0.85, 1.0, 1)
+texture = SubResource("PlaceholderTexture2D_gem")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gem")

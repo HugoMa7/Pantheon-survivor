@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://pantheon_cyclops_scene"]
+
+[ext_resource type="Script" path="res://enemies/cyclops/Cyclops.gd" id="1_cyclops"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cyclops"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cyclops_hurt"]
+radius = 22.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cyclops"]
+size = Vector2(36, 36)
+
+[node name="Cyclops" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_cyclops")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_cyclops")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cyclops")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_cyclops_hurt")

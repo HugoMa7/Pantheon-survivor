@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=2 format=3 uid="uid://pantheon_trinket_hermes_sandal"]
+
+[ext_resource type="Script" path="res://trinkets/Trinket.gd" id="1_trinket"]
+
+[resource]
+script = ExtResource("1_trinket")
+id = "hermes_sandal"
+display_name = "Hermes's Sandal"
+description = "+15% Move Speed. -5% Max HP."
+color = Color(0.9, 0.85, 0.3, 1)
+effects = [{
+"stat_id": "move_speed",
+"value": 0.15,
+"is_blessing": false
+}, {
+"stat_id": "max_hp",
+"value": -5.0,
+"is_blessing": false
+}]

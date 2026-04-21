@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GodData" load_steps=2 format=3 uid="uid://pantheon_god_hermes"]
+
+[ext_resource type="Script" path="res://gods/GodData.gd" id="1_god"]
+
+[resource]
+script = ExtResource("1_god")
+id = "hermes"
+display_name = "Hermes"
+pantheon = "greek"
+description = "Messenger of the gods. Fleet of foot."
+color = Color(0.9, 0.85, 0.3, 1)
+starting_stat_id = "move_speed"
+starting_stat_value = 0.10
+signature_weapon_id = ""
+weapon_effect_modifiers = []

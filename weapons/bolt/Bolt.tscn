@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://pantheon_bolt_scene"]
+
+[ext_resource type="Script" path="res://weapons/bolt/Bolt.gd" id="1_bolt"]
+[ext_resource type="Resource" path="res://weapons/bolt/bolt.tres" id="2_boltdata"]
+
+[node name="ZeusBolt" type="Node2D"]
+script = ExtResource("1_bolt")
+data = ExtResource("2_boltdata")

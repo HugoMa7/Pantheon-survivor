@@ -1,0 +1,38 @@
+[gd_scene load_steps=11 format=3 uid="uid://pantheon_main"]
+
+[ext_resource type="Script" path="res://scenes/Main.gd" id="0_main"]
+[ext_resource type="PackedScene" path="res://player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://progression/WaveDirector.gd" id="2_wavedir"]
+[ext_resource type="PackedScene" path="res://enemies/shade/Shade.tscn" id="3_shadescene"]
+[ext_resource type="Resource" path="res://enemies/shade/shade.tres" id="4_shadedata"]
+[ext_resource type="PackedScene" path="res://pickups/XPGem.tscn" id="5_xpgem"]
+[ext_resource type="PackedScene" path="res://ui/HUD.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://ui/LevelUpScreen.tscn" id="7_levelup"]
+[ext_resource type="Script" path="res://events/EventDirector.gd" id="8_eventdir"]
+[ext_resource type="PackedScene" path="res://ui/PauseMenu.tscn" id="9_pausemenu"]
+[ext_resource type="PackedScene" path="res://maps/DefendOlympus.tscn" id="10_map"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("0_main")
+
+[node name="Map" parent="." instance=ExtResource("10_map")]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+
+[node name="WaveDirector" type="Node" parent="."]
+script = ExtResource("2_wavedir")
+player_path = NodePath("../Player")
+shade_scene = ExtResource("3_shadescene")
+shade_data = ExtResource("4_shadedata")
+xp_gem_scene = ExtResource("5_xpgem")
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="LevelUpScreen" parent="." instance=ExtResource("7_levelup")]
+player_path = NodePath("../Player")
+
+[node name="EventDirector" type="Node" parent="."]
+script = ExtResource("8_eventdir")
+player_path = NodePath("../Player")
+
+[node name="PauseMenu" parent="." instance=ExtResource("9_pausemenu")]

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://pantheon_shield_data"]
+
+[ext_resource type="Script" path="res://weapons/WeaponData.gd" id="1_wpdata"]
+
+[resource]
+script = ExtResource("1_wpdata")
+id = "spinning_shield"
+display_name = "Spinning Shield"
+pantheon = "neutral"
+description = "Orbiting shields bash foes who come close."
+required_god_id = ""
+base_damage = 8.0
+cooldown = 1.0
+base_area = 60.0
+base_projectile_count = 1
+base_projectile_speed = 3.0
+damage_per_level = 3.0
+cooldown_reduction_per_level = 0.0
+area_per_level = 5.0
+projectile_count_per_level = 1
+max_level = 5

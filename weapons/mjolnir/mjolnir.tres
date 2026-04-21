@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://pantheon_mjolnir_data"]
+
+[ext_resource type="Script" path="res://weapons/WeaponData.gd" id="1_wpdata"]
+
+[resource]
+script = ExtResource("1_wpdata")
+id = "mjolnir"
+display_name = "Mjolnir"
+pantheon = "norse"
+description = "A hurled hammer tears through foes and returns."
+required_god_id = "thor"
+base_damage = 20.0
+cooldown = 1.8
+base_area = 320.0
+base_projectile_count = 1
+base_projectile_speed = 520.0
+damage_per_level = 6.0
+cooldown_reduction_per_level = 0.1
+area_per_level = 30.0
+projectile_count_per_level = 0
+max_level = 5

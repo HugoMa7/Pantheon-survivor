@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=2 format=3 uid="uid://pantheon_trinket_thors_belt"]
+
+[ext_resource type="Script" path="res://trinkets/Trinket.gd" id="1_trinket"]
+
+[resource]
+script = ExtResource("1_trinket")
+id = "thors_belt"
+display_name = "Thor's Belt"
+description = "+2 HP Regen per second."
+color = Color(0.6, 0.8, 1.0, 1)
+effects = [{
+"stat_id": "hp_regen",
+"value": 2.0,
+"is_blessing": false
+}]

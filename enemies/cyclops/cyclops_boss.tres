@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://pantheon_cyclops_boss_data"]
+
+[ext_resource type="Script" path="res://enemies/EnemyData.gd" id="1_enemydata"]
+
+[resource]
+script = ExtResource("1_enemydata")
+id = "cyclops_boss"
+display_name = "Elder Cyclops"
+category = "boss"
+base_hp = 2400.0
+base_damage = 26.0
+base_speed = 60.0
+size = 2.4
+is_ranged = true
+attack_range = 320.0
+projectile_speed = 260.0
+attack_cooldown = 1.8
+attack_pattern = "ranged_linear"
+xp_value = 0
+gold_drop_chance = 0.0
+gold_drop_min = 0
+gold_drop_max = 0
+color = Color(0.9, 0.35, 0.3, 1)

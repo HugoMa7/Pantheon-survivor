@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=2 format=3 uid="uid://pantheon_trinket_fortuna_coin"]
+
+[ext_resource type="Script" path="res://trinkets/Trinket.gd" id="1_trinket"]
+
+[resource]
+script = ExtResource("1_trinket")
+id = "fortuna_coin"
+display_name = "Fortuna's Coin"
+description = "+2 Luck at run start."
+color = Color(0.95, 0.8, 0.35, 1)
+effects = [{
+"stat_id": "luck",
+"value": 2.0,
+"is_blessing": false
+}]

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GodData" load_steps=2 format=3 uid="uid://pantheon_god_thor"]
+
+[ext_resource type="Script" path="res://gods/GodData.gd" id="1_god"]
+
+[resource]
+script = ExtResource("1_god")
+id = "thor"
+display_name = "Thor"
+pantheon = "norse"
+description = "Storm-son of Odin. Tireless, unyielding."
+color = Color(0.6, 0.8, 1.0, 1)
+starting_stat_id = "max_hp"
+starting_stat_value = 15.0
+signature_weapon_id = "mjolnir"
+weapon_effect_modifiers = []

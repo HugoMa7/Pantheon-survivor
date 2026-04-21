@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://pantheon_shade_scene"]
+
+[ext_resource type="Script" path="res://enemies/Enemy.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://enemies/shade/shade.tres" id="2_shadedata"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shade"]
+radius = 10.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_shade"]
+size = Vector2(20, 20)
+
+[node name="Shade" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_enemy")
+data = ExtResource("2_shadedata")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_shade")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_shade")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_shade")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=2 format=3 uid="uid://pantheon_trinket_atlas_shoulder"]
+
+[ext_resource type="Script" path="res://trinkets/Trinket.gd" id="1_trinket"]
+
+[resource]
+script = ExtResource("1_trinket")
+id = "atlas_shoulder"
+display_name = "Atlas's Shoulder"
+description = "+20 Armor. -10% Attack Speed."
+color = Color(0.65, 0.55, 0.45, 1)
+effects = [{
+"stat_id": "armor",
+"value": 20.0,
+"is_blessing": false
+}, {
+"stat_id": "attack_speed",
+"value": -0.10,
+"is_blessing": false
+}]

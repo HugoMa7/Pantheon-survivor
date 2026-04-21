@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://pantheon_player"]
+
+[ext_resource type="Script" path="res://player/Player.gd" id="1_player"]
+[ext_resource type="PackedScene" path="res://weapons/flame/Flame.tscn" id="2_flame"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 12.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_player"]
+size = Vector2(24, 24)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.843137, 0.352941, 1)
+texture = SubResource("PlaceholderTexture2D_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="DivineFlame" parent="Weapons" instance=ExtResource("2_flame")]

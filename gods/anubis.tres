@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GodData" load_steps=2 format=3 uid="uid://pantheon_god_anubis"]
+
+[ext_resource type="Script" path="res://gods/GodData.gd" id="1_god"]
+
+[resource]
+script = ExtResource("1_god")
+id = "anubis"
+display_name = "Anubis"
+pantheon = "egyptian"
+description = "Keeper of the Duat. Judge of hearts."
+color = Color(0.25, 0.75, 0.55, 1)
+starting_stat_id = "projectile_count"
+starting_stat_value = 1.0
+signature_weapon_id = "scarab_swarm"
+weapon_effect_modifiers = []

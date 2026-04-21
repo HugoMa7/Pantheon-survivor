@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=3 uid="uid://pantheon_defend_olympus"]
+
+[ext_resource type="Script" path="res://maps/DefendOlympus.gd" id="1_map"]
+[ext_resource type="Script" path="res://maps/MarbleGround.gd" id="2_ground"]
+[ext_resource type="Script" path="res://maps/MapProp.gd" id="3_prop"]
+
+[node name="DefendOlympus" type="Node2D"]
+script = ExtResource("1_map")
+
+[node name="Ground" type="Node2D" parent="."]
+script = ExtResource("2_ground")
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Altar" type="Node2D" parent="Props"]
+script = ExtResource("3_prop")
+kind = 1
+tint = Color(0.88, 0.82, 0.7, 1)
+
+[node name="ColumnNE" type="Node2D" parent="Props"]
+position = Vector2(260, -200)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnNW" type="Node2D" parent="Props"]
+position = Vector2(-260, -200)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnSE" type="Node2D" parent="Props"]
+position = Vector2(260, 200)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnSW" type="Node2D" parent="Props"]
+position = Vector2(-260, 200)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnFarN" type="Node2D" parent="Props"]
+position = Vector2(0, -480)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnFarS" type="Node2D" parent="Props"]
+position = Vector2(0, 480)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnFarE" type="Node2D" parent="Props"]
+position = Vector2(560, 0)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="ColumnFarW" type="Node2D" parent="Props"]
+position = Vector2(-560, 0)
+script = ExtResource("3_prop")
+kind = 0
+
+[node name="BrazierNE" type="Node2D" parent="Props"]
+position = Vector2(140, -90)
+script = ExtResource("3_prop")
+kind = 2
+
+[node name="BrazierNW" type="Node2D" parent="Props"]
+position = Vector2(-140, -90)
+script = ExtResource("3_prop")
+kind = 2
+
+[node name="BrazierSE" type="Node2D" parent="Props"]
+position = Vector2(140, 90)
+script = ExtResource("3_prop")
+kind = 2
+
+[node name="BrazierSW" type="Node2D" parent="Props"]
+position = Vector2(-140, 90)
+script = ExtResource("3_prop")
+kind = 2
+
+[node name="SkyLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SkyOverlay" type="ColorRect" parent="SkyLayer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.1, 0.16, 0.15)
+mouse_filter = 2

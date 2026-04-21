@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pantheon_shrine_screen"]
+
+[ext_resource type="Script" path="res://ui/ShrineScreen.gd" id="1_shrinescreen"]
+
+[node name="ShrineScreen" type="CanvasLayer"]
+script = ExtResource("1_shrinescreen")

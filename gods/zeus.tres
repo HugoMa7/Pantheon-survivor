@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GodData" load_steps=2 format=3 uid="uid://pantheon_god_zeus"]
+
+[ext_resource type="Script" path="res://gods/GodData.gd" id="1_god"]
+
+[resource]
+script = ExtResource("1_god")
+id = "zeus"
+display_name = "Zeus"
+pantheon = "greek"
+description = "King of Olympus. Wielder of thunder."
+color = Color(0.95, 0.92, 0.45, 1)
+starting_stat_id = "damage"
+starting_stat_value = 0.10
+signature_weapon_id = "zeus_bolt"
+weapon_effect_modifiers = []

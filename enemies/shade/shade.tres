@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://pantheon_shade_data"]
+
+[ext_resource type="Script" path="res://enemies/EnemyData.gd" id="1_enemydata"]
+
+[resource]
+script = ExtResource("1_enemydata")
+id = "shade"
+display_name = "Shade"
+category = "grunt"
+base_hp = 10.0
+base_damage = 5.0
+base_speed = 60.0
+size = 1.0
+is_ranged = false
+attack_range = 0.0
+projectile_speed = 0.0
+attack_cooldown = 1.0
+attack_pattern = "melee_contact"
+xp_value = 1
+gold_drop_chance = 0.005
+gold_drop_min = 1
+gold_drop_max = 1
+color = Color(0.55, 0.2, 0.7, 1)

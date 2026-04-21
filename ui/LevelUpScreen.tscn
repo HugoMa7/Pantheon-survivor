@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://pantheon_levelup"]
+
+[ext_resource type="Script" path="res://ui/LevelUpScreen.gd" id="1_lvl"]
+
+[node name="LevelUpScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_lvl")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+mouse_filter = 1
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 110.0
+text = "Level Up!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 42
+
+[node name="Center" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 140.0
+
+[node name="CardsRow" type="HBoxContainer" parent="Root/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 24

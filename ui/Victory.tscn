@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://pantheon_victory"]
+
+[ext_resource type="Script" path="res://ui/Victory.gd" id="1_victory"]
+
+[node name="VictoryScreen" type="CanvasLayer"]
+script = ExtResource("1_victory")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+custom_minimum_size = Vector2(520, 0)
+
+[node name="Title" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "Olympus Defended!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+
+[node name="Subtitle" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+text = "The gods will remember this."
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Time: 0:00"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level: 1"
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gold earned: 0"
+horizontal_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Return to the Hub"

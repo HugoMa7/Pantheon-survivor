@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=2 format=3 uid="uid://pantheon_trinket_hades_obol"]
+
+[ext_resource type="Script" path="res://trinkets/Trinket.gd" id="1_trinket"]
+
+[resource]
+script = ExtResource("1_trinket")
+id = "hades_obol"
+display_name = "Hades's Obol"
+description = "+50% gold drop chance. -5% Damage."
+color = Color(0.3, 0.35, 0.55, 1)
+effects = [{
+"stat_id": "gold_mult",
+"value": 0.50,
+"is_blessing": true
+}, {
+"stat_id": "damage",
+"value": -0.05,
+"is_blessing": false
+}]

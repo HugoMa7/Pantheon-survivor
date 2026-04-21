@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://pantheon_hub"]
+
+[ext_resource type="Script" path="res://scenes/Hub.gd" id="1_hub"]
+
+[node name="Hub" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_hub")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.08, 0.12, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -220.0
+offset_right = 260.0
+offset_bottom = 220.0
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+text = "The Hub"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+
+[node name="Subtitle" type="Label" parent="VBox"]
+layout_mode = 2
+text = "Spend gold to sharpen your blade between battles."
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBox"]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gold: 0"
+horizontal_alignment = 1
+
+[node name="SlotLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Weapon slots: 3 / 6"
+horizontal_alignment = 1
+
+[node name="BuySlotButton" type="Button" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Buy next slot"
+
+[node name="FeedbackLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="VBox"]
+layout_mode = 2
+
+[node name="StartRunButton" type="Button" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Run"
+
+[node name="MainMenuButton" type="Button" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Main Menu"

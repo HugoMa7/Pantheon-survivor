@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://pantheon_mjolnir_scene"]
+
+[ext_resource type="Script" path="res://weapons/mjolnir/Mjolnir.gd" id="1_mjolnir"]
+[ext_resource type="Resource" path="res://weapons/mjolnir/mjolnir.tres" id="2_mjolnirdata"]
+
+[node name="Mjolnir" type="Node2D"]
+script = ExtResource("1_mjolnir")
+data = ExtResource("2_mjolnirdata")

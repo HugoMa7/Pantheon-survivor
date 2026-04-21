@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://pantheon_scarabs_scene"]
+
+[ext_resource type="Script" path="res://weapons/scarabs/Scarabs.gd" id="1_scarabs"]
+[ext_resource type="Resource" path="res://weapons/scarabs/scarabs.tres" id="2_scarabsdata"]
+
+[node name="ScarabSwarm" type="Node2D"]
+script = ExtResource("1_scarabs")
+data = ExtResource("2_scarabsdata")
